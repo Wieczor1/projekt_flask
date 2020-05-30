@@ -75,15 +75,64 @@ def wizyta_create():
         con.commit()
 
 
-@app.route('/wizyta_update/<id>/', methods=['GET', 'POST'])
-def wizyta_update(id):
+@app.route('/wizyta_update', methods=['GET', 'POST'])
+def wizyta_update():
+
     if request.method == "GET":
+        global id
+        id = request.args.get("id")
+        print(id, "id")
         con = sqlite3.connect("db.db")
         cur = con.cursor()
-        cur.execute("select * from Wizyta where id = ?", id)
-        print(cur.fetchall())
+        cur.execute("select * from Wizyta where Wizyta.id = ?", (id,))
+       # wizyta = cur.fetchall()
+        cur.execute("select Name,Surname from Lekarz")
+        helper = cur.fetchall()
+        lekarze = [' '.join(lekarz) for lekarz in helper]
 
-        return
+        cur.execute("select Name,Surname from Pacjent")
+        helper = cur.fetchall()
+        pacjenci = [' '.join(pacjent) for pacjent in helper]
+        return render_template("wizyta_update.html", lekarze=lekarze, pacjenci=pacjenci)
+    if request.method == "POST":
+        lekarz = request.form['lekarz']
+        data = request.form['data']
+        pacjent = request.form['pacjent']
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        cur.execute("select id from Lekarz where Name = ? and Surname = ?",
+                    [lekarz.split(" ")[0], lekarz.split(" ")[1]])
+        lekarz = cur.fetchone()
+
+        cur.execute("select id from Pacjent where Name = ? and Surname = ?",
+                    [pacjent.split(" ")[0], pacjent.split(" ")[1]])
+        pacjent = cur.fetchone()
+        columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
+
+
+        cur.execute("update Wizyta set Data=?, lekarz_id = ?, pacjent_id = ? where id = ?",
+                    [str(data), int(lekarz[0]), int(pacjent[0]), int(id)])
+        con.commit()
+        cur.execute(
+            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+        rows = cur.fetchall()
+        return render_template("wizyta.html", columns=columns, rows=rows) #TODO usun penisa
+
+@app.route('/wizyta_delete', methods=['GET', 'POST'])
+def wizyta_delete():
+    if request.method == "GET":
+        id = request.args.get("id")
+        print(id, "id")
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        cur.execute("delete from Wizyta where Wizyta.id = ?", (id,))
+        con.commit()
+        columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
+        cur = con.cursor()
+        cur.execute(
+            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+        rows = cur.fetchall()
+        return render_template("wizyta.html", columns=columns, rows=rows)
 
 
 if __name__ == '__main__':

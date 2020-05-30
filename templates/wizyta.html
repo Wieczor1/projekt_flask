@@ -38,15 +38,20 @@
         </tbody>
 
     </table>
+{#    <a href="#" onclick="getValue();return false;">Get Value</a>#}
     <form method="get" action="/wizyta_create">
         <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
     </form>
 
 
 
-       <a id="update" href="/wizyta_update">
-           <button id="update" class="btn btn-primary" onclick="getSelected()" type="submit">Zmień wizytę</button>
-       </a>
+    <form method="get" action="/wizyta_update">
+           <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień wizytę</button>
+    </form>
+
+        <form method="get" action="/wizyta_delete">
+           <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń wizytę</button>
+    </form>
 
 
 
