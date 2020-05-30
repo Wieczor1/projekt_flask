@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Dodaj wizytę
+{% endblock %}
+
+{% block main %}
+    <form action="/wizyta_create" method="post">
+        <div class="form-group">
+           Data  &nbsp;<input autocomplete="off" autofocus class="form-control" name="data" placeholder="Data wizyty" type="date">
+        </div>
+        <div class="form-group">
+            Lekarz &nbsp;<select name="lekarz" id="lekarz">
+                {% for lekarz in lekarze %}
+
+                    <option value="{{ lekarz }}">{{ lekarz }}</option>
+
+                {% endfor %}
+            </select>
+        </div>
+        <div class="form-group">
+            Pacjent &nbsp;<select name="pacjent" id="pacjent">
+                {% for pacjent in pacjenci %}
+
+                    <option value="{{ pacjent }}">{{ pacjent }}</option>
+
+                {% endfor %}
+            </select>
+        </div>
+    <form method="post">
+        <button class="btn btn-primary" >Dodaj wizytę</button>
+    </form>
+    </form>
+{% endblock %}

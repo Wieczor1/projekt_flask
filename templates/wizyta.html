@@ -1,0 +1,54 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Wizyty
+{% endblock %}
+
+{% block main %}
+
+
+    <table class="table table-striped">
+        <thead class>
+        <tr>
+            <th scope="col">Zaznacz</th>
+            {% for column in columns %}
+                <th scope="col">{{ column }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for row in rows %}
+            <tr>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input zaznacz" id="{{ loop.index }}" value="{{ loop.index }}">
+                        <label class="custom-control-label" for="{{ loop.index }}"></label>
+                    </div>
+                </td>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+
+
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+    <form method="get" action="/wizyta_create">
+        <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
+    </form>
+
+
+
+       <a id="update" href="/wizyta_update">
+           <button id="update" class="btn btn-primary" onclick="getSelected()" type="submit">Zmień wizytę</button>
+       </a>
+
+
+
+    </tr>
+{% endblock %}
