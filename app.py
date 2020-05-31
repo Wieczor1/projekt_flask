@@ -6,7 +6,7 @@ import sqlite3
 app = Flask(__name__)
 con = sqlite3.connect("db.db")
 cur = con.cursor()
-cur.execute("select Wizyta.Data, Lekarz.Surname from Wizyta inner join Lekarz on Wizyta.Lekarz_Id = Lekarz.Id")
+cur.execute("select Wizyta.id, Wizyta.Data, Lekarz.Surname from Wizyta inner join Lekarz on Wizyta.Lekarz_Id = Lekarz.Id")
 wizyty = cur.fetchall()
 # print(wizyty)
 
@@ -29,7 +29,7 @@ def login():
         columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
 
         cur.execute(
-            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+            "select Wizyta.id, Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
         rows = cur.fetchall()
         # print(ziomki)
         return render_template("wizyta.html", columns=columns, rows=rows)
@@ -43,7 +43,7 @@ def lekarz():
         cur = con.cursor()
         columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
         cur.execute(
-            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+            "select id, Name, Surname, Pesel, Telefon, Salary from Lekarz")
         rows = cur.fetchall()
         # print(ziomki)
         return render_template("lekarz.html", columns=columns, rows=rows)
@@ -83,7 +83,7 @@ def lekarz_create():
         con.commit()
         columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
         cur.execute(
-            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+            "select id, Name, Surname, Pesel, Telefon, Salary from Lekarz")
         rows = cur.fetchall()
         # print(ziomki)
         return render_template("lekarz.html", columns=columns, rows=rows)
@@ -119,7 +119,7 @@ def lekarz_update():
 
         columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
         cur.execute(
-            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+            "select id, Name, Surname, Pesel, Telefon, Salary from Lekarz")
         rows = cur.fetchall()
         return render_template("lekarz.html", columns=columns, rows=rows) #TODO usun penisa
 
@@ -135,7 +135,7 @@ def lekarz_delete():
 
         columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
         cur.execute(
-            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+            "select id, Name, Surname, Pesel, Telefon, Salary from Lekarz")
         rows = cur.fetchall()
         return render_template("lekarz.html", columns=columns, rows=rows) #TODO usun penisa
 
@@ -148,7 +148,7 @@ def wizyta():
 
         columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
         cur.execute(
-            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+            "select Wizyta.id,Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
         rows = cur.fetchall()
         # print(ziomki)
         return render_template("wizyta.html", columns=columns, rows=rows)

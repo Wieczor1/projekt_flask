@@ -22,11 +22,11 @@
             <tr>
                 <td>
                     <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input zaznacz" id="{{ loop.index }}" value="{{ loop.index }}">
-                        <label class="custom-control-label" for="{{ loop.index }}"></label>
+                        <input type="checkbox" class="custom-control-input zaznacz" id="{{ row[0] }}" value="{{ row[0] }}">
+                        <label class="custom-control-label" for="{{ row[0] }}"></label>
                     </div>
                 </td>
-                {% for value in row %}
+                {% for value in row[1:] %}
                     <td>{{ value }}</td>
                 {% endfor %}
 
