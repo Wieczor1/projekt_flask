@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Zmien Lekarza
+{% endblock %}
+
+{% block main %}
+    <form action="/lekarz_update" method="post">
+
+               <div class="form-group">
+            <input  class="form-control" name="name" placeholder="Name" type="text">
+        </div>
+
+        <div class="form-group">
+            <input class="form-control" name="surname" placeholder="Surname" type="text">
+        </div>
+
+         <div class="form-group">
+            <input class="form-control" name="pesel" placeholder="Pesel" type="text">
+        </div>
+
+         <div class="form-group">
+            <input class="form-control" name="telefon" placeholder="Telefon" type="text">
+        </div>
+
+         <div class="form-group">
+            <input class="form-control" name="salary" placeholder="Pensja" type="number">
+        </div>
+          <div class="form-group">
+            <input class="form-control" name="username" placeholder="Login" type="text">
+        </div>
+          <div class="form-group">
+            <input class="form-control" name="password" placeholder="Haslo" type="text">
+        </div>
+
+    <form method="post" action="/lekarz_update">
+        <button class="btn btn-primary" type="submit">Zmien Lekarza</button>
+    </form>
+
+    </form>
+{% endblock %}

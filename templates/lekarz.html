@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 
 {% block title %}
-    Wizyty
+    Lekarze
 {% endblock %}
 
 {% block main %}
@@ -39,18 +39,18 @@
 
     </table>
 {#    <a href="#" onclick="getValue();return false;">Get Value</a>#}
-    <form method="get" action="/wizyta_create">
-        <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
+
+    <form method="get" action="/lekarz_create">
+        <button class="btn btn-primary" type="submit">Dodaj Lekarz</button>
     </form>
 
 
-
-    <form method="get" action="/wizyta_update">
-           <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień wizytę</button>
+    <form method="get" action="/lekarz_update">
+           <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień Lekarza</button>
     </form>
 
-        <form method="get" action="/wizyta_delete">
-           <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń wizytę</button>
+        <form method="get" action="/lekarz_delete">
+           <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń Lekarza</button>
     </form>
 
 

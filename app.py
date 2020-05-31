@@ -37,17 +37,107 @@ def login():
         return render_template("login.html")
 
 @app.route('/lekarz', methods=['GET', 'POST'])
-def wizyta():
+def lekarz():
     if request.method == "GET":
         con = sqlite3.connect("db.db")
         cur = con.cursor()
-
         columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
         cur.execute(
             "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
         rows = cur.fetchall()
         # print(ziomki)
         return render_template("lekarz.html", columns=columns, rows=rows)
+
+@app.route('/lekarz_create', methods=['GET', 'POST'])
+def lekarz_create():
+
+    if request.method == "GET":
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        return render_template("lekarz_create.html")
+
+    if request.method == "POST":
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        name = request.form['name']
+        surname = request.form['surname']
+        telefon = request.form['telefon']
+        pesel = request.form['pesel']
+        salary = request.form['salary']
+        username = request.form['username']
+        password = request.form['password']
+
+        cur.execute("insert into Users(id, Username, Password, Access) values (null, ?,?,2)",
+                    [username, password])
+        con.commit()
+
+        cur.execute("select id from Users where username = ? and password = ?", [username, password])
+
+        ziomki = cur.fetchall()
+
+        print(ziomki)
+        id = ziomki[0][0]
+        print(id)
+        cur.execute("insert into Lekarz(id, Name, Surname, Pesel, Telefon, Salary, Users_id) values (null, ?,?,?,?,?,?)",
+                    [name,surname,telefon,pesel,salary, id])
+        con.commit()
+        columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
+        cur.execute(
+            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+        rows = cur.fetchall()
+        # print(ziomki)
+        return render_template("lekarz.html", columns=columns, rows=rows)
+
+@app.route('/lekarz_update', methods=['GET', 'POST'])
+def lekarz_update():
+
+    if request.method == "GET":
+        global id
+        id = request.args.get("id")
+        return render_template("lekarz_update.html")
+
+    if request.method == "POST":
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        name = request.form['name']
+        surname = request.form['surname']
+        telefon = request.form['telefon']
+        pesel = request.form['pesel']
+        salary = request.form['salary']
+        username = request.form['username']
+        password = request.form['password']
+
+        cur.execute("select Users_id from Lekarz where id = ?", id)
+
+        lekarz_user_id = cur.fetchall()
+
+        helper = lekarz_user_id[0][0]
+
+        cur.execute("update Lekarz set Name=?, Surname = ?, Pesel = ?, Telefon = ?, Salary = ?, Users_id = ? where id=?",
+                    [name,surname,pesel,telefon,salary,helper, id])
+        con.commit()
+
+        columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
+        cur.execute(
+            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+        rows = cur.fetchall()
+        return render_template("lekarz.html", columns=columns, rows=rows) #TODO usun penisa
+
+@app.route('/lekarz_delete', methods=['GET', 'POST'])
+def lekarz_delete():
+    if request.method == "GET":
+        id = request.args.get("id")
+        print(id, "id")
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+        cur.execute("delete from Lekarz where Lekarz.id = ?", (id,))
+        con.commit()
+
+        columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
+        cur.execute(
+            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+        rows = cur.fetchall()
+        return render_template("lekarz.html", columns=columns, rows=rows) #TODO usun penisa
 
 
 @app.route('/wizyta', methods=['GET', 'POST'])
