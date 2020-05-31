@@ -36,6 +36,20 @@ def login():
     else:
         return render_template("login.html")
 
+@app.route('/lekarz', methods=['GET', 'POST'])
+def wizyta():
+    if request.method == "GET":
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+
+        columns = ["Imie", "Nazwisko", "Pesel", "Telefon", "Pensja"]
+        cur.execute(
+            "select Name, Surname, Pesel, Telefon, Salary from Lekarz")
+        rows = cur.fetchall()
+        # print(ziomki)
+        return render_template("lekarz.html", columns=columns, rows=rows)
+
+
 @app.route('/wizyta', methods=['GET', 'POST'])
 def wizyta():
     if request.method == "GET":

@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Wizyty
+{% endblock %}
+
+{% block main %}
+
+
+    <table class="table table-striped">
+        <thead class>
+        <tr>
+            <th scope="col">Zaznacz</th>
+            {% for column in columns %}
+                <th scope="col">{{ column }}</th>
+            {% endfor %}
+        </tr>
+        </thead>
+        <tbody>
+
+        {% for row in rows %}
+            <tr>
+                <td>
+                    <div class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input zaznacz" id="{{ loop.index }}" value="{{ loop.index }}">
+                        <label class="custom-control-label" for="{{ loop.index }}"></label>
+                    </div>
+                </td>
+                {% for value in row %}
+                    <td>{{ value }}</td>
+                {% endfor %}
+
+
+            </tr>
+        {% endfor %}
+
+
+        </tbody>
+
+    </table>
+{#    <a href="#" onclick="getValue();return false;">Get Value</a>#}
+    <form method="get" action="/wizyta_create">
+        <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
+    </form>
+
+
+
+    <form method="get" action="/wizyta_update">
+           <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień wizytę</button>
+    </form>
+
+        <form method="get" action="/wizyta_delete">
+           <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń wizytę</button>
+    </form>
+
+
+
+    </tr>
+{% endblock %}
