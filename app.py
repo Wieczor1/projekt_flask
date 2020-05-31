@@ -36,6 +36,19 @@ def login():
     else:
         return render_template("login.html")
 
+@app.route('/wizyta', methods=['GET', 'POST'])
+def wizyta():
+    if request.method == "GET":
+        con = sqlite3.connect("db.db")
+        cur = con.cursor()
+
+        columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
+        cur.execute(
+            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+        rows = cur.fetchall()
+        # print(ziomki)
+        return render_template("wizyta.html", columns=columns, rows=rows)
+
 
 @app.route('/wizyta_create', methods=['GET', 'POST'])
 def wizyta_create():
@@ -73,7 +86,12 @@ def wizyta_create():
         cur.execute("insert into Wizyta(id, data,lekarz_id, pacjent_id) values (null, ?,?,?)",
                     [str(data), int(lekarz[0]), int(pacjent[0])])
         con.commit()
-
+        columns = ["Data", "Imię lekarza", "Nazwisko lekarza", "Imię pacjenta", "Nazwisko pacjenta"]
+        cur = con.cursor()
+        cur.execute(
+            "select Wizyta.Data, Lekarz.Name, Lekarz.Surname, Pacjent.Name, Pacjent.Surname from Wizyta inner join Lekarz on  Wizyta.lekarz_Id = Lekarz.id inner join Pacjent on Wizyta.pacjent_id = Pacjent.id")
+        rows = cur.fetchall()
+        return render_template("wizyta.html", columns=columns, rows=rows)
 
 @app.route('/wizyta_update', methods=['GET', 'POST'])
 def wizyta_update():
