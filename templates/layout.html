@@ -28,6 +28,7 @@
         if ( checks[i].checked === true ) {
             document.getElementById("update").setAttribute("value", checks[i].value)
             document.getElementById("delete").setAttribute("value", checks[i].value)
+            document.getElementById("deleteuser").setAttribute("value", checks[i].value)
             return;
             {#str += checks[i].value + " ";#}
         }
@@ -50,23 +51,36 @@
             </button>
             <div class="collapse navbar-collapse" id="navbar">
 <!--                {% if session.user_id %}-->
+                    {% if session.access == 3 %}
                     <ul class="navbar-nav mr-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
                         <li class="nav-item"><a class="nav-link" href="/pacjent">Pacjent</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lekarz">Lekarz</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/uzytkownicy">Uzytkownicy</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
                         <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
                     </ul>
+                    {% endif %}
+                    {% if session.access == 2 %}
+                    <ul class="navbar-nav mr-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                    {% endif %}
+                    {% if session.access == 1 %}
+                    <ul class="navbar-nav mr-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
+                    </ul>
+                    <ul class="navbar-nav ml-auto mt-2">
+                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                    </ul>
+                    {% endif %}
 <!--                {% else %}-->
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/register">Register</a></li>
                         <li class="nav-item"><a class="nav-link" href="/login">Log In</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/pacjent">Pacjent</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/lekarz">Lekarz</a></li>
-                        <li class="nav-item"><a class="nav-link" href="/uzytkownicy">Uzytkownicy</a></li>
+
                     </ul>
 <!--                {% endif %}-->
             </div>

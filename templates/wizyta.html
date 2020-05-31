@@ -39,9 +39,14 @@
 
     </table>
 {#    <a href="#" onclick="getValue();return false;">Get Value</a>#}
-    <form method="get" action="/wizyta_create">
+
+    {% if session.access == 3 or session.access == 1 %}
+        <form method="get" action="/wizyta_create">
         <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
     </form>
+    {% endif %}
+
+
 
 
 
@@ -49,9 +54,12 @@
            <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień wizytę</button>
     </form>
 
+
+
         <form method="get" action="/wizyta_delete">
            <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń wizytę</button>
     </form>
+
 
 
 

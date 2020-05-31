@@ -9,7 +9,8 @@
         <div class="form-group">
            Data  &nbsp;<input autocomplete="off" autofocus class="form-control" name="data" placeholder="Data wizyty" type="date">
         </div>
-        <div class="form-group">
+        {% if session.access == 3 %}
+            <div class="form-group">
             Lekarz &nbsp;<select name="lekarz" id="lekarz">
                 {% for lekarz in lekarze %}
 
@@ -18,6 +19,7 @@
                 {% endfor %}
             </select>
         </div>
+
         <div class="form-group">
             Pacjent &nbsp;<select name="pacjent" id="pacjent">
                 {% for pacjent in pacjenci %}
@@ -27,6 +29,7 @@
                 {% endfor %}
             </select>
         </div>
+    {% endif %}
     <form method="post" action="/wizyta_update">
         <button class="btn btn-primary" type="submit">Zmień wizytę</button>
     </form>

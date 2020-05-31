@@ -7,28 +7,33 @@
 {% block main %}
     <form action="/wizyta_create" method="post">
         <div class="form-group">
-           Data  &nbsp;<input autocomplete="off" autofocus class="form-control" name="data" placeholder="Data wizyty" type="date">
+            Data &nbsp;<input autocomplete="off" autofocus class="form-control" name="data" placeholder="Data wizyty"
+                              type="date">
         </div>
-        <div class="form-group">
-            Lekarz &nbsp;<select name="lekarz" id="lekarz">
+        {% if session.access == 3 or session.access == 1 %}
+            <div class="form-group">
+                Lekarz &nbsp;<select name="lekarz" id="lekarz">
                 {% for lekarz in lekarze %}
 
-                    <option value="{{ lekarz }}">{{ lekarz }}</option>
+                    <option value="{{ lekarz[0] }}">{{ lekarz[1] }} &nbsp; {{ lekarz[2] }}</option>
 
                 {% endfor %}
             </select>
-        </div>
-        <div class="form-group">
-            Pacjent &nbsp;<select name="pacjent" id="pacjent">
+            </div>
+            {% endif %}
+            {% if session.access == 3 %}
+            <div class="form-group">
+                Pacjent &nbsp;<select name="pacjent" id="pacjent">
                 {% for pacjent in pacjenci %}
 
-                    <option value="{{ pacjent }}">{{ pacjent }}</option>
+                    <option value="{{ pacjent[0] }}">{{ pacjent[1] }}&nbsp; {{ pacjent[2] }}</option>
 
                 {% endfor %}
             </select>
-        </div>
-    <form method="post" action="/wizyta_create">
-        <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
-    </form>
+            </div>
+        {% endif %}
+        <form method="post" action="/wizyta_create">
+            <button class="btn btn-primary" type="submit">Dodaj wizytę</button>
+        </form>
     </form>
 {% endblock %}
