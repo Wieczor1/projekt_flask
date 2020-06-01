@@ -5,8 +5,30 @@
 {% endblock %}
 
 {% block main %}
+    <div class="btn-toolbar" role="toolbar">
+        <div class="btn-group mr-2" role="group">
+        <form method="get" action="/lekarz_create">
+            <button class="btn btn-primary" type="submit">Dodaj Lekarz</button>
+        </form>
+        </div>
 
+        <div class="btn-group mr-2" role="group">
+        <form method="get" action="/lekarz_update">
+               <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień Lekarza</button>
+        </form>
+        </div>
+         <div class="btn-group mr-2" role="group">
+            <form method="get" action="/lekarz_delete">
+               <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń Lekarza</button>
+        </form>
+         </div>
 
+        <div class="btn-group mr-2" role="group">
+            <form method="get" action="/lekarz_deleteuser">
+               <button name="id" value="" onclick="getValue()" id="deleteuser" class="btn btn-primary" type="submit">Usuń Dane Logowania</button>
+        </form>
+        </div>
+    </div>
     <table class="table table-striped">
         <thead class>
         <tr>
@@ -21,9 +43,8 @@
         {% for row in rows %}
             <tr>
                 <td>
-                    <div class="custom-control custom-checkbox">
-                        <input type="checkbox" class="custom-control-input zaznacz" id="{{ row[0] }}" value="{{ row[0] }}">
-                        <label class="custom-control-label" for="{{ row[0] }}"></label>
+                    <div class="form-check">
+                        <input type="radio" class="form-check-input zaznacz" name="check" id="{{ row[0] }}" value="{{ row[0] }}">
                     </div>
                 </td>
                 {% for value in row[1:] %}
@@ -40,20 +61,4 @@
     </table>
 {#    <a href="#" onclick="getValue();return false;">Get Value</a>#}
 
-    <form method="get" action="/lekarz_create">
-        <button class="btn btn-primary" type="submit">Dodaj Lekarz</button>
-    </form>
-
-
-    <form method="get" action="/lekarz_update">
-           <button name="id" value="" onclick="getValue()" id="update" class="btn btn-primary" type="submit">Zmień Lekarza</button>
-    </form>
-
-        <form method="get" action="/lekarz_delete">
-           <button name="id" value="" onclick="getValue()" id="delete" class="btn btn-primary" type="submit">Usuń Lekarza</button>
-    </form>
-
-        <form method="get" action="/lekarz_deleteuser">
-           <button name="id" value="" onclick="getValue()" id="deleteuser" class="btn btn-primary" type="submit">Usuń Dane Logowania</button>
-    </form>
 {%  endblock %}

@@ -40,12 +40,12 @@
 
         <title>{% block title %}{% endblock %}</title>
 
-    </head>layout
+    </head>
 
     <body>
 
         <nav class="navbar navbar-expand-md navbar-light bg-light border">
-            <a class="navbar-brand" href="/"><span class="red">Penis</span></a>
+            <a class="navbar-brand" href="/"><span class="red">Przychodnia</span><img src="https://thumbs.gfycat.com/DelayedVacantDassie-size_restricted.gif" height="100" width="100" alt="Światełko"></a>
             <button aria-controls="navbar" aria-expanded="false" aria-label="Toggle navigation" class="navbar-toggler" data-target="#navbar" data-toggle="collapse" type="button">
                 <span class="navbar-toggler-icon"></span>
             </button>
@@ -53,6 +53,7 @@
 <!--                {% if session.user_id %}-->
                     {% if session.access == 3 %}
                     <ul class="navbar-nav mr-auto mt-2">
+                        <li class="nav-item nav-link">Panel administratora</li>
                         <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
                         <li class="nav-item"><a class="nav-link" href="/pacjent">Pacjent</a></li>
                         <li class="nav-item"><a class="nav-link" href="/lekarz">Lekarz</a></li>
@@ -63,14 +64,16 @@
                     {% endif %}
                     {% if session.access == 2 %}
                     <ul class="navbar-nav mr-auto mt-2">
+                                            <li class="nav-item nav-link">Panel lekarza</li>
                         <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">
-                        <li class="nav-item"><a class="nav-link" href="/logout">Log Out</a></li>
+                        <li class="nav-item"><a class="nav-link" href="/logout">Wyloguj</a></li>
                     </ul>
                     {% endif %}
                     {% if session.access == 1 %}
                     <ul class="navbar-nav mr-auto mt-2">
+                                            <li class="nav-item nav-link">Panel pacjenta</li>
                         <li class="nav-item"><a class="nav-link" href="/wizyta">Wizyta</a></li>
                     </ul>
                     <ul class="navbar-nav ml-auto mt-2">

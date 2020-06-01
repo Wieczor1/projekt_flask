@@ -15,7 +15,7 @@
                 Lekarz &nbsp;<select name="lekarz" id="lekarz">
                 {% for lekarz in lekarze %}
 
-                    <option value="{{ lekarz[0] }}">{{ lekarz[1] }} &nbsp; {{ lekarz[2] }}</option>
+                      <option value="{{ lekarz }}">{{ lekarz }}</option>
 
                 {% endfor %}
             </select>
@@ -26,7 +26,7 @@
                 Pacjent &nbsp;<select name="pacjent" id="pacjent">
                 {% for pacjent in pacjenci %}
 
-                    <option value="{{ pacjent[0] }}">{{ pacjent[1] }}&nbsp; {{ pacjent[2] }}</option>
+                    <option value="{{ pacjent }}">{{ pacjent }}</option>
 
                 {% endfor %}
             </select>
